@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CLASH DISPLAY — Self-hosted from /public/fonts/clash-display
+   Downloaded from Fontshare. Weights: 400, 500, 600, 700.
+   ============================================================ */
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display/ClashDisplay-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display/ClashDisplay-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display/ClashDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/clash-display/ClashDisplay-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES — synced with config/brand.js
+   Update brand.js + these values together to rebrand the site.
+   ============================================================ */
+:root {
+  /* Brand colors */
+  --color-primary: #FF6B35;
+  --color-primary-soft: #FF9B78;
+  --color-primary-dark: #E55A25;
+
+  --color-dark: #111111;
+  --color-darkest: #0A0A0A;
+  --color-surface: #1B1B1B;
+  --color-light: #F8F4EE;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #B7B7B7;
+  --color-text-muted: #7A7A7A;
+  --color-text-dark: #111111;
+
+  /* Fonts */
+  /* --font-inter is provided by next/font/google in _app.js. */
+  --font-heading: 'Clash Display', var(--font-inter), 'Inter', sans-serif;
+  --font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
+
+  /* Layout */
+  --navbar-height: 80px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--navbar-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ============================================================
+   COMPONENTS / UTILITIES
+   ============================================================ */
+@layer components {
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .container-wide {
+    @apply max-w-[1440px] mx-auto;
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-12 py-20 md:py-32;
+  }
+
+  /* Editorial / display heading styles */
+  .h-display {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+
+  /* Eyebrow label — small caps style above headings */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-medium;
+  }
+
+  /* Skip-to-content (a11y) */
+  .skip-to-content {
+    @apply absolute -top-full left-4 z-[100] px-4 py-2 rounded-md font-heading font-semibold text-sm bg-primary text-dark focus:top-4 transition-all;
+  }
+
+  /* Glass card — used on dark sections for elevated cards */
+  .glass-card {
+    background: rgba(27, 27, 27, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Light glass — for ivory/light sections */
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Gradient text helpers */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-fade {
+    background: linear-gradient(180deg, var(--color-text-primary) 0%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Backwards compatibility with earlier components */
+  .gold-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-soft));
+  }
+  .gold-text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Outline / "ghosted" stroked text */
+  .text-stroke {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+    color: transparent;
+  }
+  .text-stroke-primary {
+    -webkit-text-stroke: 1.5px var(--color-primary);
+    color: transparent;
+  }
+
+  /* Marquee row helper */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+}
+
+@layer utilities {
+  /* ============================================================
+     GRAIN OVERLAY — subtle film noise for depth
+     Apply as: <div class="relative grain-overlay">...</div>
+     ============================================================ */
+  .grain-overlay {
+    position: relative;
+  }
+  .grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Pause-on-hover for marquees */
+  .marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* No-scrollbar utility */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface);
+  border-radius: 4px;
+  border: 2px solid var(--color-dark);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+/* ============================================================
+   FAB — gentle scale pulse for the floating WhatsApp button.
+   Subtle: scales 1 → 1.05 every 3 seconds.
+   ============================================================ */
+@keyframes fab-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+.fab-pulse {
+  animation: fab-pulse 3s ease-in-out infinite;
+}
+
+/* Halo ring that pulses outward behind the FAB. */
+@keyframes fab-halo {
+  0%   { transform: scale(0.85); opacity: 0.55; }
+  80%  { transform: scale(1.45); opacity: 0; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.fab-halo {
+  animation: fab-halo 3s ease-out infinite;
+}
+
+/* ============================================================
+   HERO — slow-drift background gradient
+   ------------------------------------------------------------
+   Combines two warm orange radial blobs over the dark base. The
+   `background-position` shifts on a 20s loop to feel alive without
+   demanding attention. CSS-only, no JS, no animation libraries.
+   ============================================================ */
+@keyframes hero-drift {
+  0% {
+    background-position:
+      0% 50%,
+      100% 0%,
+      50% 100%;
+  }
+  50% {
+    background-position:
+      80% 20%,
+      20% 80%,
+      60% 30%;
+  }
+  100% {
+    background-position:
+      0% 50%,
+      100% 0%,
+      50% 100%;
+  }
+}
+
+.hero-gradient {
+  background-color: var(--color-dark);
+  background-image:
+    radial-gradient(
+      55% 55% at var(--bg-x1, 20%) var(--bg-y1, 30%),
+      rgba(255, 107, 53, 0.10) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      40% 40% at var(--bg-x2, 80%) var(--bg-y2, 70%),
+      rgba(255, 155, 120, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      30% 30% at var(--bg-x3, 50%) var(--bg-y3, 90%),
+      rgba(255, 107, 53, 0.06) 0%,
+      transparent 65%
+    );
+  background-size: 200% 200%, 200% 200%, 200% 200%;
+  animation: hero-drift 20s ease-in-out infinite;
+}
+
+/* ============================================================
+   HERO — mouse-reactive spotlight
+   ------------------------------------------------------------
+   useMousePosition writes --mouse-x / --mouse-y as 0..1 values.
+   On hover-capable devices the spotlight follows; on touch the
+   variables stay at the default 0.5 so the glow sits centered.
+   ============================================================ */
+.hero-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    480px circle at calc(var(--mouse-x, 0.5) * 100%) calc(var(--mouse-y, 0.5) * 100%),
+    rgba(255, 107, 53, 0.10) 0%,
+    rgba(255, 107, 53, 0.04) 30%,
+    transparent 60%
+  );
+  transition: background 100ms linear;
+}
+@media (hover: none) {
+  /* Mobile/touch: skip the live tracking — gradient stays centered. */
+  .hero-spotlight { background: radial-gradient(480px circle at 50% 50%, rgba(255,107,53,0.06) 0%, transparent 60%); }
+}
+
+/* ============================================================
+   HERO — entrance animation (above-the-fold, runs on load)
+   ------------------------------------------------------------
+   Each child uses `.hero-enter` and a per-element delay (style
+   attribute) to stagger. CSS-only — no JS triggers needed.
+   ============================================================ */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.hero-enter {
+  opacity: 0;
+  animation: hero-enter 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================================
+   REVEAL ANIMATIONS — driven by hooks/useScrollReveal.js
+   ------------------------------------------------------------
+   Apply `.reveal` (or a directional variant) to any element. The
+   hook flips it to `.is-visible` once the element enters the
+   viewport, triggering the transition below.
+   ============================================================ */
+.reveal,
+.reveal-up,
+.reveal-down,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-up      { transform: translate3d(0, 28px, 0); }
+.reveal-down    { transform: translate3d(0, -28px, 0); }
+.reveal-left    { transform: translate3d(28px, 0, 0); }
+.reveal-right   { transform: translate3d(-28px, 0, 0); }
+
+.reveal.is-visible,
+.reveal-up.is-visible,
+.reveal-down.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================================
+   REDUCED MOTION — disable all animations
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   MOBILE — give bottom space so floating bar doesn't cover content
+   ============================================================ */
+@media (max-width: 767px) {
+  main {
+    padding-bottom: 4.5rem;
+  }
+}
