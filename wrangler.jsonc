@@ -1,0 +1,35 @@
+// ============================================================
+// Cloudflare Workers — static assets deployment
+// ============================================================
+// This site is a fully static Next.js export (`output: 'export'`).
+// We deploy the `out/` folder as static assets through a Worker —
+// no Next.js runtime, no SSR, no server functions.
+//
+// Cloudflare reads this file to figure out what to deploy. With
+// `assets.directory` set, the build pipeline serves /out/* directly
+// from the CDN and skips the @cloudflare/next-on-pages adapter
+// entirely (which was the source of the Next-version errors).
+// ============================================================
+{
+  // The Worker's name as it appears in the Cloudflare dashboard.
+  // Should match your existing Worker — change if Cloudflare shows
+  // a different one in the URL.
+  "name": "kailakarn-website",
+
+  // Required by Wrangler. The build runs under whichever Node.js
+  // version Cloudflare chooses; this `compatibility_date` just
+  // pins runtime behavior.
+  "compatibility_date": "2025-05-01",
+
+  // Static assets — Cloudflare serves these straight from the edge.
+  // No Worker code is needed because there are no runtime APIs.
+  "assets": {
+    "directory": "./out",
+
+    // Single-page-app behavior: when a path doesn't match a file,
+    // fall back to the closest index.html. Useful if you ever add
+    // dynamic routes later. With `trailingSlash: true` in
+    // next.config.js this rarely fires, but it's safe to leave on.
+    "not_found_handling": "single-page-application"
+  }
+}
